@@ -99,12 +99,13 @@ player_ship = PlayerShip(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50)
 asteroids = []
 bullets = []
 score = 0
+Lives = 3
 
 # Game Loop
 while True:
     # Handle events
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type  == pygame.QUIT:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
@@ -146,9 +147,13 @@ while True:
     # Collision detection
     for asteroid in asteroids:
         if player_ship.rect.colliderect(asteroid.rect):
-            print("Game Over!")
-            pygame.quit()
-            sys.exit()
+            if Lives==0:
+                print("Game Over!")
+                pygame.quit()
+                sys.exit()
+            else:
+                Lives-=1
+                asteroids.remove(asteroid)
         for bullet in bullets:
             if bullet.rect.colliderect(asteroid.rect):
                 asteroids.remove(asteroid)
@@ -163,7 +168,7 @@ while True:
 
 
     # Render the game screen
-    screen.fill((0, 0, 0))
+    screen.fill((35, 0, 32))
     screen.blit(player_ship.image, player_ship.rect)
     for asteroid in asteroids:
         screen.blit(asteroid.image, asteroid.rect)
@@ -171,6 +176,8 @@ while True:
         screen.blit(bullet.image, bullet.rect)
     font = pygame.font.Font(None, 36)
     text = font.render("Score: " + str(score), 1, (255, 255, 255))
+    text2 = font.render("Extra Lives: " + str(Lives), 1, (225, 225, 225))
     screen.blit(text, (10, 10))
+    screen.blit(text2, (10, 60))
     pygame.display.flip()
     pygame.time.Clock().tick(60)
