@@ -8,7 +8,7 @@ pygame.init()
 
 # Set screen dimensions
 SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_HEIGHT = 600 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Set title of the window
@@ -153,6 +153,8 @@ while True:
                 asteroids.remove(asteroid)
                 bullets.remove(bullet)
                 score += 1
+            if asteroid_image.y==0:
+                score -= 1
 
     # Render the game screen
     screen.fill((0, 0, 0))
