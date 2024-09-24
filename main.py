@@ -135,6 +135,7 @@ while True:
         asteroid.move()
         if asteroid.rect.y > SCREEN_HEIGHT:
             asteroids.remove(asteroid)
+            score -= 1
 
     # Move bullets
     for bullet in bullets:
@@ -153,8 +154,7 @@ while True:
                 asteroids.remove(asteroid)
                 bullets.remove(bullet)
                 score += 1
-            if asteroid_image.y==0:
-                score -= 1
+            
 
     # Render the game screen
     screen.fill((0, 0, 0))
