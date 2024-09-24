@@ -6,6 +6,9 @@ import random
 # Initialize Pygame
 pygame.init()
 
+global level
+level = 1
+
 # Set screen dimensions
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600 
@@ -49,7 +52,7 @@ class PlayerShip:
         self.rect.y -= self.speed
         if self.rect.y < 0:
             self.rect.y = 0
-
+ 
     def move_down(self):
         self.rect.y += self.speed
         if self.rect.y > SCREEN_HEIGHT - self.rect.height:
@@ -57,6 +60,9 @@ class PlayerShip:
 
 class Asteroid:
     def __init__(self):
+
+        global level
+
         self.image = asteroid_image
         if self.image is None:
             print("Error loading asteroid.png")
@@ -70,6 +76,23 @@ class Asteroid:
         self.rect.x = random.randint(0, screen_width - self.rect.width)
         self.rect.y = -self.rect.height
         self.speed = random.randint(1, 5)
+        if score>=19:
+            if score<39:
+                self.speed = random.randint(2,6)
+                level=2
+        if score>39:
+            if score<69:
+                self.speed = random.randint(3,7)
+                level=3
+        if score>69:
+            if score<99:
+                self.speed = random.randint(4,8)
+                level=4
+        if score>=99: 
+                self.speed = random.randint(5,9)
+                level=5
+        
+
     def move(self):
         self.rect.y += self.speed
 
@@ -158,13 +181,14 @@ while True:
             if bullet.rect.colliderect(asteroid.rect):
                 asteroids.remove(asteroid)
                 bullets.remove(bullet)
-                score += 1
+                score+=1
     if score==-1:
         print("Waring! Death immanent!")
     if score==-5:    
         print("Game Over!")
         pygame.quit()
         sys.exit()
+
 
 
     # Render the game screen
@@ -177,7 +201,9 @@ while True:
     font = pygame.font.Font(None, 36)
     text = font.render("Score: " + str(score), 1, (255, 255, 255))
     text2 = font.render("Extra Lives: " + str(Lives), 1, (225, 225, 225))
+    text3 = font.render("Level: " + str(level), 1, (225, 225, 225))
     screen.blit(text, (10, 10))
     screen.blit(text2, (10, 60))
+    screen.blit(text3, (10, 110))
     pygame.display.flip()
     pygame.time.Clock().tick(60)
