@@ -40,7 +40,7 @@ class PlayerShip:
         if self.rect.x < 0:
             self.rect.x = 0
 
-    def move_right(self):
+    def move_right(self): 
         self.rect.x += self.speed
         if self.rect.x > SCREEN_WIDTH - self.rect.width:
             self.rect.x = SCREEN_WIDTH - self.rect.width
