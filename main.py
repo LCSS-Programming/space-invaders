@@ -154,7 +154,13 @@ while True:
                 asteroids.remove(asteroid)
                 bullets.remove(bullet)
                 score += 1
-            
+    if score==-1:
+        print("Waring! Death immanent!")
+    if score==-5:    
+        print("Game Over!")
+        pygame.quit()
+        sys.exit()
+
 
     # Render the game screen
     screen.fill((0, 0, 0))
