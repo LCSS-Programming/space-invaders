@@ -190,7 +190,6 @@ while True:
         sys.exit()
 
 
-
     # Render the game screen
     screen.fill((35, 0, 32))
     screen.blit(player_ship.image, player_ship.rect)
